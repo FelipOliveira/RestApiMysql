@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Data;
+using WebApi.Repositories;
+using WebApi.Services;
 
 namespace WebApi.Controllers
 {
@@ -19,6 +22,7 @@ namespace WebApi.Controllers
             _context = context;
         }
         [HttpGet]
+        [Authorize(Roles = "employee,manager")]
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
         {
             return await _context.Funcionarios.ToListAsync();
@@ -69,6 +73,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> DeleteFuncionario(int id)
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);
