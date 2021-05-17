@@ -22,14 +22,14 @@ namespace WebApi.Controllers
             _context = context;
         }
         [HttpGet]
-        [Authorize(Roles = "employee,manager")]
+       
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
         {
             return await _context.Funcionarios.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Funcionario>> GetPuncoinario(int id)
+        public async Task<ActionResult<Funcionario>> GetFuncionario(int id)
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);
 
@@ -40,6 +40,8 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+
+        //[Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> PutFuncionario(int id, Funcionario funcionario)
         {
             if (id != funcionario.Id) return BadRequest();
@@ -64,7 +66,8 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Funcionario>> PostFuncioanrio(Funcionario funcionario)
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<ActionResult<Funcionario>> PostFuncionario(Funcionario funcionario)
         {
             _context.Funcionarios.Add(funcionario);
             await _context.SaveChangesAsync();
@@ -73,7 +76,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "employee,manager")]
+        //[Authorize(Roles = "manager")]
         public async Task<IActionResult> DeleteFuncionario(int id)
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);

@@ -14,10 +14,13 @@ namespace WebApi.Data
         }
 
         public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<Perfil> Perfils { get; set; }
+        public DbSet<Perfil> Perfis { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Perfil>().HasMany(p => p.funcionarios);
+            modelBuilder.Entity<Funcionario>().HasOne(f => f.perfil);
+
             modelBuilder.Entity<Perfil>()
                 .Property(p => p.nomePerfil)
                 .HasMaxLength(80);
@@ -26,17 +29,19 @@ namespace WebApi.Data
                 .Property(f => f.PrimeiroNome)
                 .HasMaxLength(80);
 
-            modelBuilder.Entity<Funcionario>()
+
+
+           /* modelBuilder.Entity<Funcionario>()
                 .HasData(
                     new Funcionario
                     {
                         Id = 1,
-                        PrimeiroNome = "João",
-                        UltimoNome = "Silva",
+                        PrimeiroNome = "Joãozinho",
+                        UltimoNome = "da Silva",
                         Cpf = "123456789",
-                        //perfil = new Perfil { Id = 1, nomePerfil = "primeiro perfil"}
+                        perfil = new Perfil { Id = 1, nomePerfil = "primeiro perfil"}
                     }
-                );
+                );*/
         }
     }
 }
