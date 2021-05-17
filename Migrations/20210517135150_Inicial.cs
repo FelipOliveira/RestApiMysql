@@ -37,24 +37,24 @@ namespace WebApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Cpf = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    perfilId = table.Column<int>(type: "int", nullable: true)
+                    PerfilId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Funcionarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Funcionarios_Perfis_perfilId",
-                        column: x => x.perfilId,
+                        name: "FK_Funcionarios_Perfis_PerfilId",
+                        column: x => x.PerfilId,
                         principalTable: "Perfis",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_perfilId",
+                name: "IX_Funcionarios_PerfilId",
                 table: "Funcionarios",
-                column: "perfilId");
+                column: "PerfilId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

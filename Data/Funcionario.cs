@@ -11,6 +11,7 @@ namespace WebApi.Data
         public string PrimeiroNome { get; set; }
         public string UltimoNome { get; set; }
         public string Cpf { get; set; }
+        public int PerfilId { get; set; }
         public Perfil perfil { get; set; }
     }
 }

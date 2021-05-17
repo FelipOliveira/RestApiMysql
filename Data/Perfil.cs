@@ -11,6 +11,6 @@ namespace WebApi.Data
         public int Id { get; set; }
         public string nomePerfil { get; set; }
         [JsonIgnore]
-        public ICollection<Funcionario> funcionarios { get; set; }
+        public List<Funcionario> funcionarios { get; set; }
     }
 }

@@ -18,8 +18,15 @@ namespace WebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Perfil>().HasMany(p => p.funcionarios);
-            modelBuilder.Entity<Funcionario>().HasOne(f => f.perfil);
+            //modelBuilder.Entity<Perfil>().HasMany(p => p.funcionarios);
+            //modelBuilder.Entity<Funcionario>().HasOne(f => f.perfil);
+           
+           
+            modelBuilder.Entity<Funcionario>()
+                .HasOne(f => f.perfil)
+                .WithMany(p=>p.funcionarios)
+                .HasForeignKey(f => f.PerfilId);
+           
 
             modelBuilder.Entity<Perfil>()
                 .Property(p => p.nomePerfil)
@@ -28,8 +35,6 @@ namespace WebApi.Data
             modelBuilder.Entity<Funcionario>()
                 .Property(f => f.PrimeiroNome)
                 .HasMaxLength(80);
-
-
 
            /* modelBuilder.Entity<Funcionario>()
                 .HasData(
